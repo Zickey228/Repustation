@@ -5,7 +5,6 @@ import (
 	"log"
 )
 
-// send 转账
 func (cli *CLI) send(from, to string, amount int) {
 	if !ValidateAddress(from) {
 		log.Panic("ERROR: Sending address illegal")
@@ -19,7 +18,7 @@ func (cli *CLI) send(from, to string, amount int) {
 
 	tx := NewUTXOTransaction(from, to, amount, bc)
 
-	//最后一个区块
+	
 	bci := bc.Iterator()
 	lastBlock := bci.Next()
 	for _, ip := range lastBlock.Ip {
@@ -32,7 +31,7 @@ func (cli *CLI) send(from, to string, amount int) {
 
 			send_file(dns)
 
-		} else { //发送给所有挖矿节点
+		} else {
 
 			send_tx(ip, tx)
 			fmt.Printf("Sending data to ----->" + ip)
